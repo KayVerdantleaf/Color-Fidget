@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Círculo Cromático Interativo</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: lightgray;
+            font-family: Arial, sans-serif;
+        }
+        #container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: auto;
+            margin-top: 20px;
+        }
+        .img-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease-in-out;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #color-list {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px;
+            border: 1px solid black;
+            max-width: 200px;
+            text-align: left;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Círculo Cromático Interativo</h2>
+    
+    <div id="container">
+        <img src="./circuloCromatico.png" class="img-layer" id="img1">
+        <img src="./ferramenta.png" class="img-layer" id="img2">
+        <img src="./ferramenta1.png" class="img-layer" id="img3">
+    </div>
+
+    <div id="controls">
+        <button onclick="rotateImage('img2', -18)">⟲ Giro 1</button>
+        <button onclick="rotateImage('img2', 18)">Giro 1 ⟳</button>
+        <button onclick="rotateImage('img3', -18)">⟲ Giro 2</button>
+        <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
+        <br>
+        <button onclick="rotateBoth(-18)">⟲ Ambos</button>
+        <button onclick="rotateBoth(18)">Ambos ⟳</button>
+        <button onclick="randomRotate()">Giro Aleatório</button>
+        <button onclick="toggleColorList()">Lista de Cores</button>
+    </div>
+
+    <div id="color-list"></div>
+
+    <script>
+        let angles = { img2: 0, img3: 0 };
+
+        function rotateImage(imageId, angle) {
+            angles[imageId] = (angles[imageId] + angle) % 360;
+            document.getElementById(imageId).style.transform = `rotate(${angles[imageId]}deg)`;
+        }
+
+        function rotateBoth(angle) {
+            rotateImage('img2', angle);
+            rotateImage('img3', angle);
+        }
+
+        function randomRotate() {
+            let angle1 = Math.floor(Math.random() * 20) * 18;
+            let angle2 = Math.floor(Math.random() * 20) * 18;
+            rotateImage('img2', angle1);
+            rotateImage('img3', angle2);
+        }
+
+        function toggleColorList() {
+            const colorList = document.getElementById('color-list');
+            if (colorList.style.display === 'block') {
+                colorList.style.display = 'none';
+            } else {
+                colorList.innerHTML = ''; 
+                let cores = [
+                    ["Vermelho", "#f32644"], ["Vermilion", "#ff5a20"], ["Laranja", "#ff8600"],
+                    ["Âmbar", "#ffb200"], ["Amarelo", "#eec000"], ["Primavera", "#f1e700"],
+                    ["Lima", "#bdd701"], ["Verde", "#66c435"], ["Esmeralda", "#4bc698"],
+                    ["Verde-mar", "#13c2a5"], ["Turquesa", "#00bcaf"], ["Ciano", "#00bec6"],
+                    ["Cerúleo", "#00c1df"], ["Azul", "#00a1da"], ["Índigo", "#0167ab"],
+                    ["Violeta", "#5c3395"], ["Roxo", "#923e9a"], ["Fúcsia", "#ca4aa1"],
+                    ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
+                ];
+
+                cores.forEach(([nome, cor], index) => {
+                    let div = document.createElement("div");
+                    div.classList.add("color-item");
+                    div.innerHTML = `<div class="color-box" style="background-color: ${cor}"></div> ${index + 1}. ${nome} (${cor})`;
+                    colorList.appendChild(div);
+                });
+
+                colorList.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>
