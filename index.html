@@ -151,6 +151,167 @@
                         alert("Erro ao copiar a cor.");
                     });
                 });
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Círculo Cromático Color Fidger</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: lightgray;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        #container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+        }
+        .img-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+        .img-fixed {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            height: 40px; /* Altura padronizada */
+        }
+        #bottom-buttons {
+            display: flex;
+            justify-content: center; /* Alinha os botões horizontalmente */
+            gap: 10px; /* Espaço entre os botões */
+        }
+        #color-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+            gap: 10px;
+            margin-top: 40px; /* Mais espaço acima da lista de cores */
+            max-width: 400px; /* Largura ajustada */
+            text-align: left;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .color-box {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            border: 1px solid black;
+            flex-shrink: 0;
+        }
+        .color-name {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Círculo Cromático Interativo</h2>
+
+    <div id="container">
+        <img src="./circuloCromatico.png" class="img-fixed" id="img1">
+        <img src="./numeros.png" class="img-fixed" id="img-numeros">
+        <img src="./ferramenta.png" class="img-layer" id="img2">
+        <img src="./ferramenta1.png" class="img-layer" id="img3">
+    </div>
+
+    <div id="controls">
+        <button onclick="rotateImage('img2', -18)">⟲ Giro 1</button>
+        <button onclick="rotateImage('img2', 18)">Giro 1 ⟳</button>
+        <button onclick="rotateImage('img3', -18)">⟲ Giro 2</button>
+        <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
+        <br>
+        <div id="bottom-buttons">
+            <button onclick="rotateBoth(-18)">⟲ Ambos</button>
+            <button onclick="randomRotate()">Giro Aleatório</button>
+            <button onclick="rotateBoth(18)">Ambos ⟳</button>
+        </div>
+    </div>
+
+    <div id="color-list">
+        <!-- Lista de cores será preenchida aqui -->
+    </div>
+
+    <script>
+        let angles = { img2: 0, img3: 0 };
+
+        function rotateImage(imageId, angle) {
+            angles[imageId] = (angles[imageId] + angle) % 360;
+            document.getElementById(imageId).style.transform = `rotate(${angles[imageId]}deg)`;
+        }
+
+        function rotateBoth(angle) {
+            rotateImage('img2', angle);
+            rotateImage('img3', angle);
+        }
+
+        function randomRotate() {
+            let angle1 = Math.floor(Math.random() * 20) * 18;
+            let angle2 = Math.floor(Math.random() * 20) * 18;
+            rotateImage('img2', angle1);
+            rotateImage('img3', angle2);
+        }
+
+        // Preenche a lista de cores ao carregar a página
+        document.addEventListener("DOMContentLoaded", function() {
+            const colorList = document.getElementById('color-list');
+            let cores = [
+                ["1. Vermelho", "#f32644"], ["2. Vermilion", "#ff5a20"], ["3. Laranja", "#ff8600"],
+                ["4. Âmbar", "#ffb200"], ["5. Amarelo", "#eec000"], ["6. Primavera", "#f1e700"],
+                ["7. Lima", "#bdd701"], ["8. Verde", "#66c435"], ["9. Esmeralda", "#4bc698"],
+                ["10. Verde-mar", "#13c2a5"], ["11. Turquesa", "#00bcaf"], ["12. Ciano", "#00bec6"],
+                ["13. Cerúleo", "#00c1df"], ["14. Azul", "#00a1da"], ["15. Índigo", "#0167ab"],
+                ["16. Violeta", "#5c3395"], ["17. Roxo", "#923e9a"], ["18. Fúcsia", "#ca4aa1"],
+                ["19. Magenta", "#e53486"], ["20. Rosa", "#ee266a"]
+            ];
+
+            // Divide as cores em duas colunas
+            const col1 = cores.slice(0, 10); // 1 a 10
+            const col2 = cores.slice(10, 20); // 11 a 20
+
+            // Adiciona as cores na primeira coluna
+            col1.forEach(([nome, cor]) => {
+                let div = document.createElement("div");
+                div.classList.add("color-item");
+                div.innerHTML = `
+                    <div class="color-box" style="background-color: ${cor};"></div>
+                    <div class="color-name">${nome}</div>
+                `;
+                div.addEventListener("click", () => {
+                    navigator.clipboard.writeText(cor).then(() => {
+                        alert(`Cor ${cor} copiada para a área de transferência!`);
+                    }).catch(() => {
+                        alert("Erro ao copiar a cor.");
+                    });
+                });
                 colorList.appendChild(div);
             });
 
