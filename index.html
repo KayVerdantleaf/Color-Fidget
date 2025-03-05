@@ -78,15 +78,16 @@
 
     <div id="container">
         <img src="./circuloCromatico.png" class="img-layer" id="img1">
-        <img src="./ferramenta.png" class="img-layer" id="img2">
-        <img src="./ferramenta1.png" class="img-layer" id="img3">
+        <img src="./numeros.png" class="img-layer" id="img2">
+        <img src="./ferramenta.png" class="img-layer" id="img3">
+        <img src="./ferramenta1.png" class="img-layer" id="img4">
     </div>
 
     <div id="controls">
-        <button onclick="rotateImage('img2', -18)">⟲ Giro 1</button>
-        <button onclick="rotateImage('img2', 18)">Giro 1 ⟳</button>
-        <button onclick="rotateImage('img3', -18)">⟲ Giro 2</button>
-        <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
+        <button onclick="rotateImage('img3', -18)">⟲ Giro 1</button>
+        <button onclick="rotateImage('img3', 18)">Giro 1 ⟳</button>
+        <button onclick="rotateImage('img4', -18)">⟲ Giro 2</button>
+        <button onclick="rotateImage('img4', 18)">Giro 2 ⟳</button>
         <br>
         <div id="bottom-buttons">
             <button onclick="rotateBoth(-18)">⟲ Ambos</button>
@@ -100,7 +101,7 @@
     </div>
 
     <script>
-        let angles = { img2: 0, img3: 0 };
+        let angles = { img3: 0, img4: 0 };
 
         function rotateImage(imageId, angle) {
             angles[imageId] = (angles[imageId] + angle) % 360;
@@ -108,15 +109,15 @@
         }
 
         function rotateBoth(angle) {
-            rotateImage('img2', angle);
             rotateImage('img3', angle);
+            rotateImage('img4', angle);
         }
 
         function randomRotate() {
             let angle1 = Math.floor(Math.random() * 20) * 18;
             let angle2 = Math.floor(Math.random() * 20) * 18;
-            rotateImage('img2', angle1);
-            rotateImage('img3', angle2);
+            rotateImage('img3', angle1);
+            rotateImage('img4', angle2);
         }
 
         // Preenche a lista de cores ao carregar a página
