@@ -83,8 +83,8 @@
         <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
         <br>
         <button onclick="rotateBoth(-18)">⟲ Ambos</button>
-        <button onclick="rotateBoth(18)">Ambos ⟳</button>
         <button onclick="randomRotate()">Giro Aleatório</button>
+        <button onclick="rotateBoth(18)">Ambos ⟳</button>
     </div>
 
     <div id="color-list">
@@ -115,13 +115,13 @@
         document.addEventListener("DOMContentLoaded", function() {
             const colorList = document.getElementById('color-list');
             let cores = [
-                ["Vermelho", "#f32644"], ["Vermilion", "#ff5a20"], ["Laranja", "#ff8600"],
-                ["Âmbar", "#ffb200"], ["Amarelo", "#eec000"], ["Primavera", "#f1e700"],
-                ["Lima", "#bdd701"], ["Verde", "#66c435"], ["Esmeralda", "#4bc698"],
-                ["Verde-mar", "#13c2a5"], ["Turquesa", "#00bcaf"], ["Ciano", "#00bec6"],
-                ["Cerúleo", "#00c1df"], ["Azul", "#00a1da"], ["Índigo", "#0167ab"],
-                ["Violeta", "#5c3395"], ["Roxo", "#923e9a"], ["Fúcsia", "#ca4aa1"],
-                ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
+                ["1. Vermelho", "#f32644"], ["2. Vermilion", "#ff5a20"], ["3. Laranja", "#ff8600"],
+                ["4. Âmbar", "#ffb200"], ["5. Amarelo", "#eec000"], ["6. Primavera", "#f1e700"],
+                ["7. Lima", "#bdd701"], ["8. Verde", "#66c435"], ["9. Esmeralda", "#4bc698"],
+                ["10. Verde-mar", "#13c2a5"], ["11. Turquesa", "#00bcaf"], ["12. Ciano", "#00bec6"],
+                ["13. Cerúleo", "#00c1df"], ["14. Azul", "#00a1da"], ["15. Índigo", "#0167ab"],
+                ["16. Violeta", "#5c3395"], ["17. Roxo", "#923e9a"], ["18. Fúcsia", "#ca4aa1"],
+                ["19. Magenta", "#e53486"], ["20. Rosa", "#ee266a"]
             ];
 
             cores.forEach(([nome, cor]) => {
