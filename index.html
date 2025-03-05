@@ -74,22 +74,23 @@
             position: absolute;
             width: 175px; /* Tamanho da circunferência numérica */
             height: 175px;
-            top: 20px; /* Centralizado verticalmente */
-            left: 20px; /* Centralizado horizontalmente */
-            transform-origin: center;
-            transform: rotate(-30deg); /* Rotação de -30 graus */
+            top: 50%; /* Centralizado verticalmente */
+            left: 50%; /* Centralizado horizontalmente */
+            transform: translate(-50%, -50%) rotate(-30deg); /* Centraliza e rotaciona */
         }
         .number-circle-sm {
             width: 90px; /* Raio menor */
             height: 90px;
-            top: 20px;
-            left: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
         }
         .number-circle-lg {
             width: 280px; /* Raio maior */
             height: 280px;
-            top: 20px;
-            left: 20px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
         }
         .number {
             position: absolute;
