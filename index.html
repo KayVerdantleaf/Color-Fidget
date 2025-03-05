@@ -33,15 +33,13 @@
             cursor: pointer;
         }
         #color-list {
-            display: none;
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 10px;
-            border: 1px solid black;
-            max-width: 200px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
             text-align: left;
         }
         .color-item {
@@ -60,7 +58,7 @@
 <body>
 
     <h2>Círculo Cromático Interativo</h2>
-    
+
     <div id="container">
         <img src="./circuloCromatico.png" class="img-layer" id="img1">
         <img src="./ferramenta.png" class="img-layer" id="img2">
@@ -76,10 +74,11 @@
         <button onclick="rotateBoth(-18)">⟲ Ambos</button>
         <button onclick="rotateBoth(18)">Ambos ⟳</button>
         <button onclick="randomRotate()">Giro Aleatório</button>
-        <button onclick="toggleColorList()">Lista de Cores</button>
     </div>
 
-    <div id="color-list"></div>
+    <div id="color-list">
+        <!-- Lista de cores será preenchida aqui -->
+    </div>
 
     <script>
         let angles = { img2: 0, img3: 0 };
@@ -101,32 +100,26 @@
             rotateImage('img3', angle2);
         }
 
-        function toggleColorList() {
+        // Preenche a lista de cores ao carregar a página
+        document.addEventListener("DOMContentLoaded", function() {
             const colorList = document.getElementById('color-list');
-            if (colorList.style.display === 'block') {
-                colorList.style.display = 'none';
-            } else {
-                colorList.innerHTML = ''; 
-                let cores = [
-                    ["Vermelho", "#f32644"], ["Vermilion", "#ff5a20"], ["Laranja", "#ff8600"],
-                    ["Âmbar", "#ffb200"], ["Amarelo", "#eec000"], ["Primavera", "#f1e700"],
-                    ["Lima", "#bdd701"], ["Verde", "#66c435"], ["Esmeralda", "#4bc698"],
-                    ["Verde-mar", "#13c2a5"], ["Turquesa", "#00bcaf"], ["Ciano", "#00bec6"],
-                    ["Cerúleo", "#00c1df"], ["Azul", "#00a1da"], ["Índigo", "#0167ab"],
-                    ["Violeta", "#5c3395"], ["Roxo", "#923e9a"], ["Fúcsia", "#ca4aa1"],
-                    ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
-                ];
+            let cores = [
+                ["Vermelho", "#f32644"], ["Vermilion", "#ff5a20"], ["Laranja", "#ff8600"],
+                ["Âmbar", "#ffb200"], ["Amarelo", "#eec000"], ["Primavera", "#f1e700"],
+                ["Lima", "#bdd701"], ["Verde", "#66c435"], ["Esmeralda", "#4bc698"],
+                ["Verde-mar", "#13c2a5"], ["Turquesa", "#00bcaf"], ["Ciano", "#00bec6"],
+                ["Cerúleo", "#00c1df"], ["Azul", "#00a1da"], ["Índigo", "#0167ab"],
+                ["Violeta", "#5c3395"], ["Roxo", "#923e9a"], ["Fúcsia", "#ca4aa1"],
+                ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
+            ];
 
-                cores.forEach(([nome, cor], index) => {
-                    let div = document.createElement("div");
-                    div.classList.add("color-item");
-                    div.innerHTML = `<div class="color-box" style="background-color: ${cor}"></div> ${index + 1}. ${nome} (${cor})`;
-                    colorList.appendChild(div);
-                });
-
-                colorList.style.display = 'block';
-            }
-        }
+            cores.forEach(([nome, cor], index) => {
+                let div = document.createElement("div");
+                div.classList.add("color-item");
+                div.innerHTML = `<div class="color-box" style="background-color: ${cor}"></div> ${index + 1}. ${nome} (${cor})`;
+                colorList.appendChild(div);
+            });
+        });
     </script>
 
 </body>
