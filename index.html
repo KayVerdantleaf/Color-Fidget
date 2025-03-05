@@ -9,18 +9,26 @@
             text-align: center;
             background-color: lightgray;
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         #container {
             position: relative;
             width: 400px;
             height: 400px;
-            margin: auto;
-            margin-top: 20px;
+            margin: 20px auto;
         }
         .img-layer {
             position: absolute;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
             transition: transform 0.3s ease-in-out;
         }
         #controls {
@@ -38,20 +46,23 @@
             gap: 10px;
             margin-top: 20px;
             max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
             text-align: left;
         }
         .color-item {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
+            cursor: pointer;
         }
         .color-box {
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             margin-right: 10px;
             border: 1px solid black;
+            flex-shrink: 0;
+        }
+        .color-name {
+            font-size: 14px;
         }
     </style>
 </head>
@@ -113,10 +124,20 @@
                 ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
             ];
 
-            cores.forEach(([nome, cor], index) => {
+            cores.forEach(([nome, cor]) => {
                 let div = document.createElement("div");
                 div.classList.add("color-item");
-                div.innerHTML = `<div class="color-box" style="background-color: ${cor}"></div> ${index + 1}. ${nome} (${cor})`;
+                div.innerHTML = `
+                    <div class="color-box" style="background-color: ${cor};"></div>
+                    <div class="color-name">${nome}</div>
+                `;
+                div.addEventListener("click", () => {
+                    navigator.clipboard.writeText(cor).then(() => {
+                        alert(`Cor ${cor} copiada para a área de transferência!`);
+                    }).catch(() => {
+                        alert("Erro ao copiar a cor.");
+                    });
+                });
                 colorList.appendChild(div);
             });
         });
