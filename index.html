@@ -70,6 +70,25 @@
         .color-name {
             font-size: 14px;
         }
+        .number-circle {
+            position: absolute;
+            width: 300px; /* Tamanho da circunferência numérica */
+            height: 300px;
+            top: 50px; /* Centralizado verticalmente */
+            left: 50px; /* Centralizado horizontalmente */
+            transform-origin: center;
+        }
+        .number {
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            color: black;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            transform-origin: center;
+        }
     </style>
 </head>
 <body>
@@ -78,6 +97,7 @@
 
     <div id="container">
         <img src="./circuloCromatico.png" class="img-layer" id="img1">
+        <div class="number-circle" id="number-circle"></div>
         <img src="./ferramenta.png" class="img-layer" id="img2">
         <img src="./ferramenta1.png" class="img-layer" id="img3">
     </div>
@@ -117,6 +137,30 @@
             let angle2 = Math.floor(Math.random() * 20) * 18;
             rotateImage('img2', angle1);
             rotateImage('img3', angle2);
+        }
+
+        // Cria a circunferência numérica de 1 a 20
+        function createNumberCircle() {
+            const numberCircle = document.getElementById('number-circle');
+            const radius = 130; // Raio da circunferência
+            const centerX = 150; // Centro X do círculo
+            const centerY = 150; // Centro Y do círculo
+
+            for (let i = 1; i <= 20; i++) {
+                const angle = (i - 1) * (360 / 20); // Ângulo para cada número
+                const rad = (angle * Math.PI) / 180; // Converte para radianos
+
+                // Calcula a posição X e Y do número
+                const x = centerX + radius * Math.cos(rad);
+                const y = centerY + radius * Math.sin(rad);
+
+                const numberDiv = document.createElement("div");
+                numberDiv.classList.add("number");
+                numberDiv.textContent = i;
+                numberDiv.style.left = `${x}px`;
+                numberDiv.style.top = `${y}px`;
+                numberCircle.appendChild(numberDiv);
+            }
         }
 
         // Preenche a lista de cores ao carregar a página
@@ -171,6 +215,9 @@
                 });
                 colorList.appendChild(div);
             });
+
+            // Cria a circunferência numérica
+            createNumberCircle();
         });
     </script>
 
