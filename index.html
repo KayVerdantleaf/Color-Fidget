@@ -41,12 +41,17 @@
             cursor: pointer;
             height: 40px; /* Altura padronizada */
         }
+        #bottom-buttons {
+            display: flex;
+            justify-content: center; /* Alinha os botões horizontalmente */
+            gap: 10px; /* Espaço entre os botões */
+        }
         #color-list {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 colunas */
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas */
             gap: 10px;
-            margin-top: 20px;
-            max-width: 800px; /* Aumentado para acomodar 4 colunas */
+            margin-top: 40px; /* Mais espaço acima da lista de cores */
+            max-width: 400px; /* Largura ajustada */
             text-align: left;
         }
         .color-item {
@@ -83,9 +88,11 @@
         <button onclick="rotateImage('img3', -18)">⟲ Giro 2</button>
         <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
         <br>
-        <button onclick="rotateBoth(-18)">⟲ Ambos</button>
-        <button onclick="randomRotate()">Giro Aleatório</button>
-        <button onclick="rotateBoth(18)">Ambos ⟳</button>
+        <div id="bottom-buttons">
+            <button onclick="rotateBoth(-18)">⟲ Ambos</button>
+            <button onclick="randomRotate()">Giro Aleatório</button>
+            <button onclick="rotateBoth(18)">Ambos ⟳</button>
+        </div>
     </div>
 
     <div id="color-list">
@@ -125,7 +132,30 @@
                 ["19. Magenta", "#e53486"], ["20. Rosa", "#ee266a"]
             ];
 
-            cores.forEach(([nome, cor]) => {
+            // Divide as cores em duas colunas
+            const col1 = cores.slice(0, 10); // 1 a 10
+            const col2 = cores.slice(10, 20); // 11 a 20
+
+            // Adiciona as cores na primeira coluna
+            col1.forEach(([nome, cor]) => {
+                let div = document.createElement("div");
+                div.classList.add("color-item");
+                div.innerHTML = `
+                    <div class="color-box" style="background-color: ${cor};"></div>
+                    <div class="color-name">${nome}</div>
+                `;
+                div.addEventListener("click", () => {
+                    navigator.clipboard.writeText(cor).then(() => {
+                        alert(`Cor ${cor} copiada para a área de transferência!`);
+                    }).catch(() => {
+                        alert("Erro ao copiar a cor.");
+                    });
+                });
+                colorList.appendChild(div);
+            });
+
+            // Adiciona as cores na segunda coluna
+            col2.forEach(([nome, cor]) => {
                 let div = document.createElement("div");
                 div.classList.add("color-item");
                 div.innerHTML = `
