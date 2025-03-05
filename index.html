@@ -48,10 +48,10 @@
         }
         #color-list {
             display: grid;
-            grid-template-columns: 1fr; /* 1 coluna */
-            gap: 5px;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+            gap: 10px;
             margin-top: 40px; /* Mais espaço acima da lista de cores */
-            max-width: 200px; /* Largura ajustada */
+            max-width: 400px; /* Largura ajustada */
             text-align: left;
         }
         .color-item {
@@ -77,7 +77,7 @@
             top: 50px; /* Centralizado verticalmente */
             left: 50px; /* Centralizado horizontalmente */
             transform-origin: center;
-            transform: rotate(30deg); /* Rotação de 30 graus */
+            transform: rotate(-30deg); /* Rotação de -30 graus */
         }
         .number-circle-sm {
             width: 250px; /* Raio menor */
@@ -190,8 +190,30 @@
                 ["19. Magenta", "#e53486"], ["20. Rosa", "#ee266a"]
             ];
 
-            // Adiciona as cores na lista
-            cores.forEach(([nome, cor]) => {
+            // Divide as cores em duas colunas
+            const col1 = cores.slice(0, 10); // 1 a 10
+            const col2 = cores.slice(10, 20); // 11 a 20
+
+            // Adiciona as cores na primeira coluna
+            col1.forEach(([nome, cor]) => {
+                let div = document.createElement("div");
+                div.classList.add("color-item");
+                div.innerHTML = `
+                    <div class="color-box" style="background-color: ${cor};"></div>
+                    <div class="color-name">${nome}</div>
+                `;
+                div.addEventListener("click", () => {
+                    navigator.clipboard.writeText(cor).then(() => {
+                        alert(`Cor ${cor} copiada para a área de transferência!`);
+                    }).catch(() => {
+                        alert("Erro ao copiar a cor.");
+                    });
+                });
+                colorList.appendChild(div);
+            });
+
+            // Adiciona as cores na segunda coluna
+            col2.forEach(([nome, cor]) => {
                 let div = document.createElement("div");
                 div.classList.add("color-item");
                 div.innerHTML = `
