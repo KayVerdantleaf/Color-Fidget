@@ -64,6 +64,35 @@
         .color-name {
             font-size: 14px;
         }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        #circle1 {
+            width: 300px;
+            height: 300px;
+            top: 50px;
+            left: 50px;
+        }
+        #circle2 {
+            width: 250px;
+            height: 250px;
+            top: 75px;
+            left: 75px;
+        }
+        #circle3 {
+            width: 200px;
+            height: 200px;
+            top: 100px;
+            left: 100px;
+        }
     </style>
 </head>
 <body>
@@ -72,6 +101,9 @@
 
     <div id="container">
         <img src="./circuloCromatico.png" class="img-layer" id="img1">
+        <div id="circle1" class="circle"></div>
+        <div id="circle2" class="circle"></div>
+        <div id="circle3" class="circle"></div>
         <img src="./ferramenta.png" class="img-layer" id="img2">
         <img src="./ferramenta1.png" class="img-layer" id="img3">
     </div>
@@ -83,8 +115,8 @@
         <button onclick="rotateImage('img3', 18)">Giro 2 ⟳</button>
         <br>
         <button onclick="rotateBoth(-18)">⟲ Ambos</button>
-        <button onclick="rotateBoth(18)">Ambos ⟳</button>
         <button onclick="randomRotate()">Giro Aleatório</button>
+        <button onclick="rotateBoth(18)">Ambos ⟳</button>
     </div>
 
     <div id="color-list">
@@ -115,13 +147,13 @@
         document.addEventListener("DOMContentLoaded", function() {
             const colorList = document.getElementById('color-list');
             let cores = [
-                ["Vermelho", "#f32644"], ["Vermilion", "#ff5a20"], ["Laranja", "#ff8600"],
-                ["Âmbar", "#ffb200"], ["Amarelo", "#eec000"], ["Primavera", "#f1e700"],
-                ["Lima", "#bdd701"], ["Verde", "#66c435"], ["Esmeralda", "#4bc698"],
-                ["Verde-mar", "#13c2a5"], ["Turquesa", "#00bcaf"], ["Ciano", "#00bec6"],
-                ["Cerúleo", "#00c1df"], ["Azul", "#00a1da"], ["Índigo", "#0167ab"],
-                ["Violeta", "#5c3395"], ["Roxo", "#923e9a"], ["Fúcsia", "#ca4aa1"],
-                ["Magenta", "#e53486"], ["Rosa", "#ee266a"]
+                ["1. Vermelho", "#f32644"], ["2. Vermilion", "#ff5a20"], ["3. Laranja", "#ff8600"],
+                ["4. Âmbar", "#ffb200"], ["5. Amarelo", "#eec000"], ["6. Primavera", "#f1e700"],
+                ["7. Lima", "#bdd701"], ["8. Verde", "#66c435"], ["9. Esmeralda", "#4bc698"],
+                ["10. Verde-mar", "#13c2a5"], ["11. Turquesa", "#00bcaf"], ["12. Ciano", "#00bec6"],
+                ["13. Cerúleo", "#00c1df"], ["14. Azul", "#00a1da"], ["15. Índigo", "#0167ab"],
+                ["16. Violeta", "#5c3395"], ["17. Roxo", "#923e9a"], ["18. Fúcsia", "#ca4aa1"],
+                ["19. Magenta", "#e53486"], ["20. Rosa", "#ee266a"]
             ];
 
             cores.forEach(([nome, cor]) => {
@@ -140,6 +172,44 @@
                 });
                 colorList.appendChild(div);
             });
+
+            // Adiciona números nas circunferências
+            const circle1 = document.getElementById('circle1');
+            const circle2 = document.getElementById('circle2');
+            const circle3 = document.getElementById('circle3');
+
+            for (let i = 1; i <= 20; i++) {
+                const angle = (i - 1) * (360 / 20);
+                const rad = (angle * Math.PI) / 180;
+
+                const x1 = 150 + 130 * Math.cos(rad);
+                const y1 = 150 + 130 * Math.sin(rad);
+                const x2 = 150 + 100 * Math.cos(rad);
+                const y2 = 150 + 100 * Math.sin(rad);
+                const x3 = 150 + 70 * Math.cos(rad);
+                const y3 = 150 + 70 * Math.sin(rad);
+
+                const num1 = document.createElement("div");
+                num1.textContent = i;
+                num1.style.position = "absolute";
+                num1.style.left = `${x1}px`;
+                num1.style.top = `${y1}px`;
+                circle1.appendChild(num1);
+
+                const num2 = document.createElement("div");
+                num2.textContent = i;
+                num2.style.position = "absolute";
+                num2.style.left = `${x2}px`;
+                num2.style.top = `${y2}px`;
+                circle2.appendChild(num2);
+
+                const num3 = document.createElement("div");
+                num3.textContent = i;
+                num3.style.position = "absolute";
+                num3.style.left = `${x3}px`;
+                num3.style.top = `${y3}px";
+                circle3.appendChild(num3);
+            }
         });
     </script>
 
